@@ -2,12 +2,17 @@ package com.example.a101app;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    FloatingActionButton btn;
 
     //Widgets
     RecyclerView    recyclerView;
@@ -35,21 +41,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recyclerView = findViewById(R.id.recyclerView);
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                GotoClass();
+                Go();
+            }
+        });
 
+        recyclerView = findViewById(R.id.recyclerView);
         LinearLayoutManager layoutManager   =   new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-
         //Firebase
         myRef   = FirebaseDatabase.getInstance().getReference();
-
         //ArrayList
         messageList =   new ArrayList<>();
-
         //Clear ArrayList
         ClearAll();
-
         //Get Data Method
         GetDataFromFirebase();
 
@@ -95,5 +107,17 @@ public class MainActivity extends AppCompatActivity {
 
         messageList =   new ArrayList<>();
     }
-
+    public void GotoClass(){
+        Intent intent= new Intent(this,ContactActivity.class);
+        btn = (FloatingActionButton) findViewById(R.id.fab);
+        startActivity(intent);
+    }
+    public void Go(){
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GotoClass();
+            }
+        });
+    }
 }
