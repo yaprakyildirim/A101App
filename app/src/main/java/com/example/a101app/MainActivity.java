@@ -24,13 +24,11 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     FloatingActionButton btn;
-
     //Widgets
     RecyclerView    recyclerView;
 
     //Firebase
     private DatabaseReference myRef;
-
     //Variables
     private ArrayList<Messages> messageList;
     private RecyclerAdapter recyclerAdapter;
@@ -67,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     private void GetDataFromFirebase() {
         Query query = myRef.child("message");
 
@@ -95,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
     private void ClearAll(){
         if (messageList !=  null){
             messageList.clear();
@@ -120,4 +116,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
 }

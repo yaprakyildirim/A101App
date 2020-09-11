@@ -28,15 +28,13 @@ public class ContactActivity extends AppCompatActivity {
         Click();
     }
 
-    void TakeValue()
-    {
+    void TakeValue() {
         username = name.getText().toString();
         mail = email.getText().toString();
         number = phone.getText().toString();
         msj = message.getText().toString();
     }
-    void Click()
-    {
+    void Click() {
         infoSend.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -46,4 +44,9 @@ public class ContactActivity extends AppCompatActivity {
         });
     }
 
+    public void  ExitApp(View v){
+    moveTaskToBack(true);
+    android.os.Process.killProcess(android.os.Process.myPid());
+    System.exit(1);
+    }
 }
