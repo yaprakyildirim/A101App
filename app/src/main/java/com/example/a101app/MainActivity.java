@@ -9,7 +9,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -25,7 +28,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     FloatingActionButton btn;
     //Widgets
-    RecyclerView    recyclerView;
+    RecyclerView recyclerView;
 
     //Firebase
     private DatabaseReference myRef;
@@ -51,17 +54,44 @@ public class MainActivity extends AppCompatActivity {
         });
 
         recyclerView = findViewById(R.id.recyclerView);
-        LinearLayoutManager layoutManager   =   new LinearLayoutManager(this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         //Firebase
-        myRef   = FirebaseDatabase.getInstance().getReference();
+        myRef = FirebaseDatabase.getInstance().getReference();
         //ArrayList
-        messageList =   new ArrayList<>();
+        messageList = new ArrayList<>();
         //Clear ArrayList
         ClearAll();
         //Get Data Method
         GetDataFromFirebase();
+
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.options,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId()==R.id.settings)
+        {
+            Toast.makeText(this, "Ayarlar yapım aşamasında", Toast.LENGTH_SHORT).show();
+        }
+        else if(item.getItemId()==R.id.exit)
+        {
+            Toast.makeText(this, "Çıkış yapılıyor", Toast.LENGTH_SHORT).show();
+
+            moveTaskToBack(true);
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(1);
+        }
+
+        return super.onOptionsItemSelected(item);
 
     }
 
@@ -72,13 +102,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ClearAll();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Messages messages = new Messages();
 
-                        messages.setImageUrl(snapshot.child("image").getValue().toString());
-                        messages.setName(snapshot.child("name").getValue().toString());
+                    messages.setImageUrl(snapshot.child("image").getValue().toString());
+                    messages.setName(snapshot.child("name").getValue().toString());
 
-                        messageList.add(messages);
+                    messageList.add(messages);
                 }
                 recyclerAdapter = new RecyclerAdapter(getApplicationContext(), messageList);
                 recyclerView.setAdapter(recyclerAdapter);
@@ -92,23 +122,26 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-    private void ClearAll(){
-        if (messageList !=  null){
+
+    private void ClearAll() {
+        if (messageList != null) {
             messageList.clear();
 
-            if(recyclerAdapter != null){
+            if (recyclerAdapter != null) {
                 recyclerAdapter.notifyDataSetChanged();
             }
         }
 
-        messageList =   new ArrayList<>();
+        messageList = new ArrayList<>();
     }
-    public void GotoClass(){
-        Intent intent= new Intent(this,ContactActivity.class);
+
+    public void GotoClass() {
+        Intent intent = new Intent(this, ContactActivity.class);
         btn = (FloatingActionButton) findViewById(R.id.fab);
         startActivity(intent);
     }
-    public void Go(){
+
+    public void Go() {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,7 +149,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
 }

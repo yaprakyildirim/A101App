@@ -7,7 +7,7 @@
     tools:context=".ContactActivity"
     android:orientation="vertical">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#cceafc"
@@ -38,7 +38,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Adınız"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:maxLength="10"/>
 
             <EditText
                 android:id="@+id/Email"
@@ -47,61 +48,61 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:hint="Email"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:maxLength="25"/>
 
             <EditText
                 android:id="@+id/Phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Telefon"
-                android:inputType="phone" />
+                android:inputType="phone"
+                android:maxLength="10"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+            <EditText
+                android:id="@+id/edittext_tarih"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp" />
 
+            <Button
+                android:id="@+id/button_tarih_sec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/edittext_tarih"
+                android:layout_toEndOf="@+id/edittext_tarih"
+                android:layout_toRightOf="@+id/edittext_tarih"
+                android:text="Tarih Seç"
+                android:background="#2e98c9"
+                android:textColor="#fff"/>
+            </LinearLayout>
             <EditText
                 android:id="@+id/Message"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="120dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:gravity="top"
                 android:hint="Mesajınız"
                 android:inputType="textMultiLine"
                 android:padding="5dp"
-                android:singleLine="false" />
+                android:singleLine="false"
+                android:maxLength="150"/>
         </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:orientation="horizontal" >
 
     <Button
             android:id="@+id/Send"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:background="#2e98c9"
-            android:elevation="4dp"
-            android:paddingLeft="50dp"
-            android:paddingRight="70dp"
             android:text="Gönder"
             android:textColor="#fff" />
 
-        <Button
-            android:id="@+id/Exit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="#2e98c9"
-            android:elevation="4dp"
-            android:paddingLeft="70dp"
-            android:paddingRight="70dp"
-            android:text="ÇIKIŞ"
-            android:onClick="ExitApp"
-            android:textColor="#fff" />
-
-
     </LinearLayout>
-    </LinearLayout>
-
 </RelativeLayout>
